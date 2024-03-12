@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  db:
+    container_name: "restaurant_db"
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "restaurantdb"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
+volumes:
+  db:
+    driver: local
