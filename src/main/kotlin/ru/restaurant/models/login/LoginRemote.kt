@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class LoginRemote(
+data class LoginRecieveRemote(
     val login: String,
     val password: String,
     //val isAdmin: Boolean

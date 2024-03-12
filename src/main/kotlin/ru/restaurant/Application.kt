@@ -3,6 +3,8 @@ package ru.restaurant
 import io.ktor.server.application.*
 import io.ktor.server.cio.*
 import io.ktor.server.engine.*
+import ru.restaurant.models.login.configureLoginRouting
+import ru.restaurant.models.register.configureRegisterRouting
 import ru.restaurant.plugins.*
 
 fun main() {
@@ -12,5 +14,7 @@ fun main() {
 
 fun Application.module() {
     configureRouting()
+    configureRegisterRouting()
+    configureLoginRouting()
     configureSerialization()
 }
