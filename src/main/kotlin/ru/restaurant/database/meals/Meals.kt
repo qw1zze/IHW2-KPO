@@ -21,6 +21,12 @@ object Meals: Table("meals") {
         }
     }
 
+    fun delete(name: String) {
+        transaction {
+            Meals.deleteWhere { Meals.name eq name }
+        }
+    }
+
     fun getByName(name: String): MealDTO? {
         return try {
             transaction {
