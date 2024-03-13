@@ -19,6 +19,11 @@ class RegisterController(val call: ApplicationCall) {
         if (userDTO != null) {
             call.respond(HttpStatusCode.BadRequest, "User is already exists")
         } else {
+            if (Tokens.inSystem(registerRecieveRemote.login)) {
+                call.respond(HttpStatusCode.BadRequest, message = "You already in system")
+                return
+            }
+
             val token = UUID.randomUUID().toString()
 
             Users.insert(
