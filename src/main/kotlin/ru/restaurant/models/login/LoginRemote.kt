@@ -8,7 +8,6 @@ import kotlinx.serialization.Serializable
 data class LoginRecieveRemote(
     val login: String,
     val password: String,
-    //val isAdmin: Boolean
 )
 
 @Serializable

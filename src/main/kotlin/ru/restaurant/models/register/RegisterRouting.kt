@@ -13,17 +13,8 @@ import java.util.*
 fun Application.configureRegisterRouting() {
     routing {
         post("/register") {
-            val recieve = call.receive<RegisterRecieveRemote>()
-
-            if (InMemoryCache.userList.map { it.login }.contains(recieve.login)) {
-                call.respond(HttpStatusCode.BadRequest, "User is already exists")
-            }
-
-            val token = UUID.randomUUID().toString()
-            InMemoryCache.userList.add(recieve)
-            InMemoryCache.token.add(TokenCache(login = recieve.login, token = token))
-
-            call.respond(RegisterResponseRemote(token = token))
+            val registerController = RegisterController(call)
+            registerController.registerNewUser()
         }
     }
 }
