@@ -1,0 +1,6 @@
+CREATE TABLE tokens
+(
+    Id CHARACTER VARYING(50),
+    login CHARACTER VARYING(30),
+    token CHARACTER VARYING(50)
+);

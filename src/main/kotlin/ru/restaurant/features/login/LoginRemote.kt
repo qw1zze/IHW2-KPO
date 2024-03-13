@@ -1,14 +1,12 @@
-package ru.restaurant.models.login
+package ru.restaurant.features.login
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class LoginRemote(
+data class LoginRecieveRemote(
     val login: String,
     val password: String,
-    //val isAdmin: Boolean
 )
 
 @Serializable

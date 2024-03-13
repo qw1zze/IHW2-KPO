@@ -1,0 +1,7 @@
+CREATE TABLE users
+(
+    Id CHARACTER VARYING(50),
+    login CHARACTER VARYING(30),
+    password CHARACTER VARYING(30),
+    isAdmin BOOLEAN
+);
