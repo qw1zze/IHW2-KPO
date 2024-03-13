@@ -1,6 +1,5 @@
-package ru.restaurant.models.login
+package ru.restaurant.features.login
 
-import com.sun.org.apache.xpath.internal.operations.Bool
 import kotlinx.serialization.Serializable
 
 

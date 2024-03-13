@@ -1,4 +1,4 @@
-package ru.restaurant.models.register
+package ru.restaurant.features.register
 
 import io.ktor.http.*
 import io.ktor.server.application.*

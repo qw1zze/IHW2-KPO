@@ -1,15 +1,12 @@
-package ru.restaurant.models.login
+package ru.restaurant.features.login
 
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import ru.restaurant.cache.InMemoryCache
-import ru.restaurant.cache.TokenCache
 import ru.restaurant.database.tokens.TokenDTO
 import ru.restaurant.database.tokens.Tokens
 import ru.restaurant.database.users.Users
-import ru.restaurant.models.register.RegisterRecieveRemote
 import java.util.*
 
 class LoginController(private val call: ApplicationCall) {

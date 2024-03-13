@@ -46,4 +46,15 @@ object Users: Table("users") {
             null
         }
     }
+
+    fun isAdmin(login: String) : Boolean {
+        return try {
+            transaction {
+                val isAdmin = Users.selectAll().where(Users.login eq login).first()[Users.isAdmin]
+                isAdmin
+            }
+        } catch (e: Exception) {
+            return false
+        }
+    }
 }
