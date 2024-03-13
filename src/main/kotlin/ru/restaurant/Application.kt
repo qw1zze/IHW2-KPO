@@ -5,6 +5,7 @@ import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import org.jetbrains.exposed.sql.Database
 import ru.restaurant.features.addMeal.configureAddMealRouting
+import ru.restaurant.features.changeMealCount.configureChangeMealRouting
 import ru.restaurant.features.deleteMeal.configureDeleteMealRouting
 import ru.restaurant.features.login.configureLoginRouting
 import ru.restaurant.features.register.configureRegisterRouting
@@ -23,5 +24,6 @@ fun Application.module() {
     configureLoginRouting()
     configureAddMealRouting()
     configureDeleteMealRouting()
+    configureChangeMealRouting()
     configureSerialization()
 }

@@ -27,6 +27,14 @@ object Meals: Table("meals") {
         }
     }
 
+    fun updateCount(name: String, count: Int) {
+        transaction {
+            Meals.update({Meals.name eq name}) {
+                it[Meals.count] = count
+            }
+        }
+    }
+
     fun getByName(name: String): MealDTO? {
         return try {
             transaction {
