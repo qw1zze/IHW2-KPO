@@ -4,16 +4,14 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import ru.restaurant.database.meals.MealDTO
 import ru.restaurant.database.meals.Meals
 import ru.restaurant.database.tokens.Tokens
 import ru.restaurant.database.users.Users
-import java.util.*
 
-class ChangeMealController(private val call: ApplicationCall) {
+class ChangeMealCountController(private val call: ApplicationCall) {
 
     suspend fun changeMeal() {
-        val recieve = call.receive<ChangeMealRemote>()
+        val recieve = call.receive<ChangeMealCountRemote>()
         val login = Tokens.getByToken(recieve.token)
 
         if (login == null) {

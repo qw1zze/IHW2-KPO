@@ -1,10 +1,10 @@
-package ru.restaurant.features.changeMealCount
+package ru.restaurant.features.changeMealTime
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ChangeMealRemote(
+data class ChangeMealTimeRemote(
     val token: String,
     val name: String,
-    val count: Int
+    val time: Int
 )

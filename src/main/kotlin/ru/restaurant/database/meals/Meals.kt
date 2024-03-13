@@ -35,6 +35,22 @@ object Meals: Table("meals") {
         }
     }
 
+    fun updatePrice(name: String, price: Int) {
+        transaction {
+            Meals.update({Meals.name eq name}) {
+                it[Meals.price] = price
+            }
+        }
+    }
+
+    fun updateTime(name: String, time: Int) {
+        transaction {
+            Meals.update({Meals.name eq name}) {
+                it[Meals.time] = time
+            }
+        }
+    }
+
     fun getByName(name: String): MealDTO? {
         return try {
             transaction {

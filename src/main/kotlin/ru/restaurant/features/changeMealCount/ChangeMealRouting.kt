@@ -3,10 +3,10 @@ package ru.restaurant.features.changeMealCount
 import io.ktor.server.application.*
 import io.ktor.server.routing.*
 
-fun Application.configureChangeMealRouting() {
+fun Application.configureChangeMealCountRouting() {
     routing {
-        post("/changeMeal") {
-            val changeMealController = ChangeMealController(call)
+        post("/changeMealCount") {
+            val changeMealController = ChangeMealCountController(call)
             changeMealController.changeMeal()
         }
     }
