@@ -10,6 +10,7 @@ import ru.restaurant.database.orders.OrderDTO
 import ru.restaurant.database.orders.Orders
 import ru.restaurant.database.tokens.Tokens
 import ru.restaurant.database.users.Users
+import java.util.*
 
 class AddMealOrderController(private val call: ApplicationCall) {
 
@@ -53,6 +54,7 @@ class AddMealOrderController(private val call: ApplicationCall) {
 
         Orders.insert(
             OrderDTO(
+                id = UUID.randomUUID().toString(),
                 name = login,
                 meals = mutableListOf(recieve.meal),
                 totalTime = meal.time,

@@ -8,8 +8,10 @@ import ru.restaurant.database.meals.Meals
 import ru.restaurant.database.tokens.TokenDTO
 import ru.restaurant.database.tokens.Tokens
 import ru.restaurant.database.users.Users
+import java.util.*
 
 object Orders: Table("orders") {
+    private val id = Orders.varchar("id" , 50)
     private val name = Orders.varchar("name" , 30)
     private val meals = Orders.array<String>("meals",  VarCharColumnType(120))
     private val totalTime = Orders.integer("totaltime")
@@ -18,6 +20,7 @@ object Orders: Table("orders") {
     fun insert(orderDTO: OrderDTO) {
         transaction {
             Orders.insert {
+                it[Orders.id] = orderDTO.id
                 it[Orders.name] = orderDTO.name
                 it[Orders.meals] = orderDTO.meals
                 it[Orders.totalTime] = orderDTO.totalTime
@@ -34,9 +37,25 @@ object Orders: Table("orders") {
             val totalTime = order.totalTime
 
             meals.add(meal.name)
-            Orders.update({Orders.name eq name}) {
+            Orders.update({Orders.name eq name and(Orders.status eq "New")}) {
                 it[Orders.meals] = meals
                 it[Orders.totalTime] = totalTime + meal.time
+            }
+        }
+    }
+
+    fun startCooking(name:String) {
+        transaction {
+            Orders.update({Orders.name eq name and(Orders.status eq "New")}) {
+                it[Orders.status] = "Cooking"
+            }
+        }
+    }
+
+    fun finishCooking(id:String) {
+        transaction {
+            Orders.update({Orders.id eq id and(Orders.status eq "Cooking")}) {
+                it[Orders.status] = "Cooked"
             }
         }
     }
@@ -44,8 +63,26 @@ object Orders: Table("orders") {
     fun findNewOrder(name: String): OrderDTO? {
         return try {
             transaction {
-                val order = Orders.selectAll().where(Orders.name eq name).first()
+                val order = Orders.selectAll().andWhere { Orders.name eq name }.andWhere { Orders.status eq "New" }.first()
                 OrderDTO(
+                    id = order[Orders.id],
+                    name = order[Orders.name],
+                    meals = order[Orders.meals].toMutableList(),
+                    totalTime = order[Orders.totalTime],
+                    status = order[Orders.status]
+                )
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun findCookingOrder(name: String): OrderDTO? {
+        return try {
+            transaction {
+                val order = Orders.selectAll().andWhere { Orders.name eq name }.andWhere { Orders.status eq "Cooking" }.first()
+                OrderDTO(
+                    id = order[Orders.id],
                     name = order[Orders.name],
                     meals = order[Orders.meals].toMutableList(),
                     totalTime = order[Orders.totalTime],

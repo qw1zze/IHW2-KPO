@@ -13,6 +13,7 @@ import ru.restaurant.features.deleteMeal.configureDeleteMealRouting
 import ru.restaurant.features.login.configureLoginRouting
 import ru.restaurant.features.logout.configureLogoutRouting
 import ru.restaurant.features.register.configureRegisterRouting
+import ru.restaurant.features.sendOrder.configureSendOrderRouting
 import ru.restaurant.plugins.*
 
 fun main() {
@@ -33,5 +34,6 @@ fun Application.module() {
     configureChangeMealTimeRouting()
     configureLogoutRouting()
     configureAddMealOrderRouting()
+    configureSendOrderRouting()
     configureSerialization()
 }

@@ -1,5 +1,6 @@
 CREATE TABLE orders
 (
+    Id CHARACTER VARYING(50),
     name CHARACTER VARYING(30),
     meals CHARACTER VARYING(30) ARRAY,
     totalTime INT,
