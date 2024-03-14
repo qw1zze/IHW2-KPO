@@ -19,6 +19,12 @@ class LoginController(private val call: ApplicationCall) {
             call.respond(HttpStatusCode.BadRequest, message = "User not found")
         } else {
             if (userDTO.password == recieve.password) {
+
+                if (Tokens.inSystem(recieve.login)) {
+                    call.respond(HttpStatusCode.BadRequest, message = "You already in system")
+                    return
+                }
+
                 val token = UUID.randomUUID().toString()
 
                 Tokens.insert(
