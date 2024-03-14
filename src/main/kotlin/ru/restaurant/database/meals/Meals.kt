@@ -51,6 +51,15 @@ object Meals: Table("meals") {
         }
     }
 
+    fun reserveMeal(meal: String) {
+        transaction {
+            val count = Meals.getByName(meal)!!.count
+            Meals.update({Meals.name eq meal}) {
+                it[Meals.count] = count - 1
+            }
+        }
+    }
+
     fun getByName(name: String): MealDTO? {
         return try {
             transaction {

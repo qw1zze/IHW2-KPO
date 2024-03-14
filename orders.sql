@@ -1,0 +1,7 @@
+CREATE TABLE orders
+(
+    name CHARACTER VARYING(30),
+    meals CHARACTER VARYING(30) ARRAY,
+    totalTime INT,
+    status CHARACTER VARYING(10)
+);
