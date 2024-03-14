@@ -44,6 +44,12 @@ class SendOrderController(private val call: ApplicationCall) {
             return
         }
 
+        val cookedOrder = Orders.findCookedOrder(login)
+        if (cookedOrder != null) {
+            call.respond(HttpStatusCode.BadRequest, message = "There is order to pay")
+            return
+        }
+
         Orders.startCooking(login)
 
         val thread = CookingState(order)

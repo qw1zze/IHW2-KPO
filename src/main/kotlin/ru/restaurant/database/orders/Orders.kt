@@ -66,6 +66,14 @@ object Orders: Table("orders") {
         }
     }
 
+    fun payOrder(id:String) {
+        transaction {
+            Orders.update({Orders.id eq id and(Orders.status eq "Cooked")}) {
+                it[Orders.status] = "Payed"
+            }
+        }
+    }
+
     fun findNewOrder(name: String): OrderDTO? {
         return try {
             transaction {
@@ -100,7 +108,23 @@ object Orders: Table("orders") {
         }
     }
 
-    fun findCookedOrder(id: String): OrderDTO? {
+    fun findCookedOrder(name: String): OrderDTO? {
+        return try {
+            transaction {
+                val order = Orders.selectAll().andWhere { Orders.name eq name }.andWhere { Orders.status eq "Cooked" }.first()
+                OrderDTO(
+                    id = order[Orders.id],
+                    name = order[Orders.name],
+                    meals = order[Orders.meals].toMutableList(),
+                    totalTime = order[Orders.totalTime],
+                    status = order[Orders.status]
+                )
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+    fun findCookedOrderById(id: String): OrderDTO? {
         return try {
             transaction {
                 val order = Orders.selectAll().andWhere { Orders.id eq id }.andWhere { Orders.status eq "Cooked" }.first()

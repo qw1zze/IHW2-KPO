@@ -17,7 +17,7 @@ class CookingState(private val order: OrderDTO) {
         }
         locker.withLock {
             Orders.finishCooking(order.id)
-            val ord = Orders.findCookedOrder(order.id)
+            val ord = Orders.findCookedOrderById(order.id)
 
             if (ord != null) {
                 println("Order is ready")
