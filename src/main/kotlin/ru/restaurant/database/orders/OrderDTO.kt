@@ -1,7 +1,8 @@
 package ru.restaurant.database.orders
 
-import ru.restaurant.database.meals.MealDTO
+import kotlinx.serialization.Serializable
 
+@Serializable
 class OrderDTO (
     val id: String,
     val name: String,

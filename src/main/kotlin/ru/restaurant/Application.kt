@@ -12,6 +12,7 @@ import ru.restaurant.features.changeMealPrice.configureChangeMealPriceRouting
 import ru.restaurant.features.changeMealTime.configureChangeMealTimeRouting
 import ru.restaurant.features.deleteMeal.configureDeleteMealRouting
 import ru.restaurant.features.getMenu.configureGetMenuRouting
+import ru.restaurant.features.getOrders.configureGetOrdersRouting
 import ru.restaurant.features.login.configureLoginRouting
 import ru.restaurant.features.logout.configureLogoutRouting
 import ru.restaurant.features.payOrder.configurePayOrderRouting
@@ -43,5 +44,6 @@ fun Application.module() {
     configureCancelOrderRouting()
     configurePayOrderRouting()
     configureGetMenuRouting()
+    configureGetOrdersRouting()
     configureSerialization()
 }

@@ -141,4 +141,21 @@ object Orders: Table("orders") {
         }
     }
 
+    fun getOrders() : MutableList<OrderDTO> {
+        val orders: MutableList<OrderDTO> = mutableListOf()
+        return transaction {
+            for (order in Orders.selectAll().iterator()) {
+                orders.add(
+                    OrderDTO(
+                        id = order[Orders.id],
+                        name = order[Orders.name],
+                        meals = order[Orders.meals].toMutableList(),
+                        totalTime = order[Orders.totalTime],
+                        status = order[Orders.status],
+                ))
+            }
+            orders
+        }
+    }
+
 }
