@@ -3,6 +3,7 @@ package ru.restaurant.database.meals
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
+import ru.restaurant.database.orders.Orders
 
 object Meals: Table("meals") {
     private val name = Meals.varchar("name", 30)
@@ -24,6 +25,17 @@ object Meals: Table("meals") {
     fun delete(name: String) {
         transaction {
             Meals.deleteWhere { Meals.name eq name }
+        }
+    }
+
+
+    fun getMeals() : MutableMap<String, Int> {
+        val meals: MutableMap<String, Int> = mutableMapOf()
+        return transaction {
+            for (meal in Meals.selectAll().iterator()) {
+                meals[meal[Meals.name]] = meal[Meals.price]
+            }
+            meals
         }
     }
 
