@@ -3,6 +3,7 @@ package ru.restaurant.database.meals
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
+import ru.restaurant.database.orders.Orders
 
 object Meals: Table("meals") {
     private val name = Meals.varchar("name", 30)
@@ -27,6 +28,17 @@ object Meals: Table("meals") {
         }
     }
 
+
+    fun getMeals() : MutableMap<String, Int> {
+        val meals: MutableMap<String, Int> = mutableMapOf()
+        return transaction {
+            for (meal in Meals.selectAll().iterator()) {
+                meals[meal[Meals.name]] = meal[Meals.price]
+            }
+            meals
+        }
+    }
+
     fun updateCount(name: String, count: Int) {
         transaction {
             Meals.update({Meals.name eq name}) {
@@ -47,6 +59,15 @@ object Meals: Table("meals") {
         transaction {
             Meals.update({Meals.name eq name}) {
                 it[Meals.time] = time
+            }
+        }
+    }
+
+    fun reserveMeal(meal: String) {
+        transaction {
+            val count = Meals.getByName(meal)!!.count
+            Meals.update({Meals.name eq meal}) {
+                it[Meals.count] = count - 1
             }
         }
     }
